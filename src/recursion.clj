@@ -12,10 +12,18 @@
     (empty? (rest coll))))
 
 (defn my-last [coll]
-  :-)
+  (if (or (singleton? coll) (empty? coll))
+    (first coll)
+    (my-last (rest coll))))
 
 (defn max-element [a-seq]
-  :-)
+  (let [helper (fn [cur-max b-seq]
+    (if (empty? b-seq)
+      cur-max
+      (recur (max cur-max (first b-seq)) (rest b-seq))))]
+    (if (or (empty? a-seq) (singleton? a-seq))
+      (first a-seq)
+      (helper (first a-seq) (rest a-seq)))))
 
 (defn seq-max [seq-1 seq-2]
   [:-])
