@@ -26,10 +26,19 @@
       (helper (first a-seq) (rest a-seq)))))
 
 (defn seq-max [seq-1 seq-2]
-  [:-])
+  (if (<= (count seq-1) (count seq-2))
+    seq-2
+    seq-1))
+
 
 (defn longest-sequence [a-seq]
-  [:-])
+  (let [helper (fn [cur-longest-seq b-seq]
+                 (if (empty? b-seq)
+                   cur-longest-seq
+                   (recur (seq-max cur-longest-seq (first b-seq)) (rest b-seq))))]
+    (if (or (empty? a-seq) (singleton? a-seq))
+      (first a-seq)
+      (helper (first a-seq) (rest a-seq)))))
 
 (defn my-filter [pred? a-seq]
   [:-])
