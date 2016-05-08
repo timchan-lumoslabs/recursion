@@ -113,19 +113,32 @@
       (+ (fib (- n 1)) (fib (- n 2)))))
 
 (defn my-repeat [how-many-times what-to-repeat]
-  [:-])
+  (cond
+    (<= how-many-times 0)
+      '()
+    :else
+      (cons what-to-repeat (my-repeat (dec how-many-times) what-to-repeat))))
 
 (defn my-range [up-to]
-  [:-])
+  (cond
+    (<= up-to 0)
+      '()
+    :else
+      (cons (dec up-to) (my-range (dec up-to)))))
 
 (defn tails [a-seq]
-  [:-])
+  (cond
+    (empty? a-seq)
+      ['()]
+    :else
+      (cons a-seq (tails (rest a-seq)))))
 
 (defn inits [a-seq]
-  [:-])
+  (let [reversed (tails (reverse a-seq))]
+    (reverse (map reverse reversed))))
 
 (defn rotations [a-seq]
-  [:-])
+  (reverse (rest (reverse (map concat (tails a-seq) (inits a-seq))))))
 
 (defn my-frequencies-helper [freqs a-seq]
   [:-])
