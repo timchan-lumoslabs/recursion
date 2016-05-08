@@ -129,7 +129,7 @@
 (defn tails [a-seq]
   (cond
     (empty? a-seq)
-      ['()]
+      (seq ['()])
     :else
       (cons a-seq (tails (rest a-seq)))))
 
@@ -138,13 +138,26 @@
     (reverse (map reverse reversed))))
 
 (defn rotations [a-seq]
-  (reverse (rest (reverse (map concat (tails a-seq) (inits a-seq))))))
+  (cond
+    (empty? a-seq)
+      (seq ['()])
+    :else
+      (reverse (rest (reverse (map concat (tails a-seq) (inits a-seq)))))))
 
 (defn my-frequencies-helper [freqs a-seq]
-  [:-])
+  (let [cur (first a-seq)
+        contains-cur (contains? freqs cur)
+        old-cur (get freqs cur)]
+    (cond
+      (empty? a-seq)
+        freqs
+      contains-cur
+        (my-frequencies-helper (assoc freqs cur (inc old-cur)) (rest a-seq))
+      :else
+        (my-frequencies-helper (assoc freqs cur 1) (rest a-seq)))))
 
 (defn my-frequencies [a-seq]
-  [:-])
+  (my-frequencies-helper {} a-seq))
 
 (defn un-frequencies [a-map]
   [:-])
@@ -172,4 +185,5 @@
 
 (defn powerset [a-set]
   [:-])
+
 
